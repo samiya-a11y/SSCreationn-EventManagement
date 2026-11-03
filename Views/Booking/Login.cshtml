@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Admin Portal - SS Creationn";
+}
+
+<div class="container">
+    <div class="ssc-auth-wrap">
+        <div class="ssc-auth-card ssc-fade">
+            <div class="ssc-auth-head">
+                <img src="~/images/logo.jpeg" alt="SS Creationn" asp-append-version="true" />
+                <h5>SS Creationn Admin</h5>
+                <small>Restricted Management Portal</small>
+            </div>
+
+            <div class="ssc-auth-body">
+                @if (ViewBag.ErrorMessage != null)
+                {
+                    <div class="alert alert-danger py-2 small" role="alert">
+                        @ViewBag.ErrorMessage
+                    </div>
+                }
+
+                <form asp-action="Login" method="post">
+                    <div class="mb-3">
+                        <label class="form-label" for="username">Username</label>
+                        <input type="text" id="username" name="username" class="form-control" required autocomplete="username" placeholder="Enter username" />
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" required autocomplete="current-password" placeholder="Enter password" />
+                    </div>
+                    <button type="submit" class="btn btn-gold w-100 py-3">
+                        Log In to Dashboard <span class="ssc-arrow">&rarr;</span>
+                    </button>
+                </form>
+            </div>
+
+            <div class="ssc-auth-foot">
+                <a asp-controller="Home" asp-action="Index" class="ssc-link small">&larr; Back to Client Website</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,176 @@
+@model IEnumerable<SSCreationnProject.Models.EventGallery>
+@{
+    ViewData["Title"] = "Previous Events - SS Creationn";
+    string currentCat = ViewBag.SelectedCategory as string ?? "All";
+}
+
+<div class="ssc-home">
+
+    <!-- ============ HEADER ============ -->
+    <section class="ssc-hero ssc-hero-sm">
+        <img src="~/images/logo.jpeg" alt="" aria-hidden="true" 
+        class="ssc-watermark ssc-watermark-center d-none d-md-block" 
+        style=" top: 50%; transform: translate(-50%, -50%); width: 540px; height: 540px; opacity: 0.60; filter: contrast(1.1) drop-shadow(0 8px 25px rgba(197, 160, 89, 0.45)); pointer-events: none; z-index: 1;"
+         asp-append-version="true"  asp-append-version="true" />
+        <div class="ssc-orb ssc-orb-1"></div>
+        <div class="ssc-orb ssc-orb-2"></div>
+
+        <div class="container ssc-hero-inner">
+            <span class="ssc-eyebrow ssc-fade">
+                <span class="ssc-line"></span> Signature Portfolio <span class="ssc-line"></span>
+            </span>
+            <h1 class="ssc-hero-title ssc-fade" style="--d: .1s">Memorable <em>Celebrations</em></h1>
+            <p class="ssc-hero-sub ssc-fade mb-0" style="--d: .2s">
+                Open any celebration below to view its full photo album, venue highlights, and d&eacute;cor story.
+            </p>
+        </div>
+    </section>
+
+    <div class="container pb-5">
+
+        <!-- ============ CATEGORY FILTERS ============ -->
+        <nav class="ssc-filters mb-5 ssc-reveal" aria-label="Filter events by category">
+            <a asp-action="Index" asp-route-category="All" class="ssc-pill @(currentCat == "All" ? "active" : "")">All Events</a>
+            <a asp-action="Index" asp-route-category="Wedding" class="ssc-pill @(currentCat == "Wedding" ? "active" : "")">Weddings</a>
+            <a asp-action="Index" asp-route-category="Corporate" class="ssc-pill @(currentCat == "Corporate" ? "active" : "")">Corporate</a>
+            <a asp-action="Index" asp-route-category="Birthday" class="ssc-pill @(currentCat == "Birthday" ? "active" : "")">Birthdays &amp; Anniversaries</a>
+        </nav>
+
+        <!-- ============ GALLERY GRID ============ -->
+        <div class="row g-4">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    var photoCount = (item.GalleryImages?.Count ?? 0) > 0 ? item.GalleryImages!.Count : 1;
+
+                    <div class="col-md-6 col-lg-4 ssc-reveal">
+                        <article class="ssc-card" data-bs-toggle="modal" data-bs-target="#eventModal-@item.Id" role="button" tabindex="0">
+                            <div class="ssc-card-media">
+                                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                {
+                                    <img src="@item.ImageUrl" alt="@item.Title" loading="lazy" />
+                                }
+                                else
+                                {
+                                    <div class="ssc-card-empty"><span>Photo pending</span></div>
+                                }
+
+                                <span class="ssc-chip ssc-chip-dark">@photoCount Photos</span>
+                                <span class="ssc-chip ssc-chip-gold">@item.Category</span>
+                                <div class="ssc-card-hint"><span>View all photos</span></div>
+                            </div>
+
+                            <div class="ssc-card-body">
+                                <p class="ssc-card-meta">@item.Location &nbsp;·&nbsp; @item.EventDate.ToString("MMM yyyy")</p>
+                                <h5 class="ssc-card-title">@item.Title</h5>
+                                @if (!string.IsNullOrEmpty(item.Description))
+                                {
+                                    <p class="ssc-card-text">@item.Description</p>
+                                }
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- EVENT DETAIL POPUP MODAL -->
+                    <div class="modal fade ssc-modal" id="eventModal-@item.Id" tabindex="-1" aria-labelledby="modalLabel-@item.Id" aria-hidden="true">
+                        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <div>
+                                        <span class="ssc-chip ssc-chip-gold ssc-chip-static mb-2">@item.Category Album</span>
+                                        <h4 class="modal-title" id="modalLabel-@item.Id">@item.Title</h4>
+                                    </div>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div id="carousel-@item.Id" class="carousel slide ssc-carousel mb-3" data-bs-ride="false">
+                                        <div class="carousel-inner">
+                                            @if (item.GalleryImages != null && item.GalleryImages.Any())
+                                            {
+                                                var isFirst = true;
+                                                foreach (var photo in item.GalleryImages)
+                                                {
+                                                    <div class="carousel-item @(isFirst ? "active" : "")">
+                                                        <img src="@photo.ImageUrl" class="d-block w-100" alt="@item.Title" loading="lazy" />
+                                                    </div>
+                                                    isFirst = false;
+                                                }
+                                            }
+                                            else if (!string.IsNullOrEmpty(item.ImageUrl))
+                                            {
+                                                <div class="carousel-item active">
+                                                    <img src="@item.ImageUrl" class="d-block w-100" alt="@item.Title" />
+                                                </div>
+                                            }
+                                        </div>
+
+                                        @if ((item.GalleryImages?.Count ?? 0) > 1)
+                                        {
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@item.Id" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#carousel-@item.Id" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        }
+                                    </div>
+
+                                    @if (item.GalleryImages != null && item.GalleryImages.Count > 1)
+                                    {
+                                        <div class="ssc-thumbs">
+                                            @for (int pIdx = 0; pIdx < item.GalleryImages.Count; pIdx++)
+                                            {
+                                                <img src="@item.GalleryImages[pIdx].ImageUrl"
+                                                     data-bs-target="#carousel-@item.Id"
+                                                     data-bs-slide-to="@pIdx"
+                                                     alt="Thumbnail @(pIdx + 1)" loading="lazy" />
+                                            }
+                                        </div>
+                                    }
+
+                                    <div class="row g-3 mb-3">
+                                        <div class="col-sm-6">
+                                            <div class="ssc-info"><small>Venue</small><div>@item.Location</div></div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="ssc-info"><small>Date</small><div>@item.EventDate.ToString("dd MMMM yyyy")</div></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="ssc-info">
+                                        <small>Conceptual Decor &amp; Highlights</small>
+                                        <p class="mb-0">@(string.IsNullOrWhiteSpace(item.Description) ? "Bespoke spatial design and execution by SS Creationn." : item.Description)</p>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <span class="small text-muted d-none d-sm-inline">Inspired by this decor? Reserve your dates with us.</span>
+                                    <div class="d-flex gap-2 ms-auto">
+                                        <button type="button" class="btn btn-outline-gold btn-sm px-4" data-bs-dismiss="modal">Close</button>
+                                        <a asp-controller="Booking" asp-action="Create" class="btn btn-gold btn-sm px-4">Book Similar Event</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 ssc-reveal">
+                    <div class="ssc-empty">
+                        <div class="ssc-empty-icon">📸</div>
+                        <h5>No content available</h5>
+                        <p>No past event photos found in this category yet. Please check back soon.</p>
+                        <a asp-action="Index" asp-route-category="All" class="btn btn-outline-gold btn-sm px-4">View All Events</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

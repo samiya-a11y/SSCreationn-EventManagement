@@ -1,0 +1,206 @@
+@{
+    ViewData["Title"] = "About Us - SS Creationn";
+}
+
+<div class="ssc-home">
+
+    <!-- ============ HERO ============ -->
+    <section class="ssc-hero ssc-hero-sm">
+        <!-- Left Corner Half Logo (Higher Visibility) -->
+    <img src="~/images/logo.jpeg" 
+         alt="" 
+         aria-hidden="true"
+         class="position-absolute rounded-circle user-select-none d-none d-md-block" 
+         style="left: 0; top: 50%; transform: translate(-50%, -50%); width: 540px; height: 540px; opacity: 0.60; filter: contrast(1.1) drop-shadow(0 8px 25px rgba(197, 160, 89, 0.45)); pointer-events: none; z-index: 1;"
+         asp-append-version="true" />
+
+    <!-- Right Corner Half Logo (Higher Visibility) -->
+    <img src="~/images/logo.jpeg" 
+         alt="" 
+         aria-hidden="true"
+         class="position-absolute rounded-circle user-select-none d-none d-md-block" 
+         style="right: 0; top: 50%; transform: translate(50%, -50%); width: 540px; height: 540px; opacity: 0.60; filter: contrast(1.1) drop-shadow(0 8px 25px rgba(197, 160, 89, 0.45)); pointer-events: none; z-index: 1;"
+         asp-append-version="true" />
+        <div class="ssc-orb ssc-orb-1"></div>
+        <div class="ssc-orb ssc-orb-2"></div>
+
+        <div class="container ssc-hero-inner">
+            <span class="ssc-eyebrow ssc-fade">
+                <span class="ssc-line"></span> Our Legacy &amp; Passion <span class="ssc-line"></span>
+            </span>
+            <h1 class="ssc-hero-title ssc-fade" style="--d: .1s">About <em>SS Creationn</em></h1>
+            <p class="ssc-hero-sub ssc-fade mb-0" style="--d: .2s">
+                Crafting unforgettable experiences, celebrations, and milestone moments.
+            </p>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- ============ PHILOSOPHY ============ -->
+        <section class="ssc-section pt-0">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 ssc-reveal">
+                    <span class="ssc-kicker">Our Philosophy</span>
+                    <h2 class="ssc-title mb-4">Turning Visions into <em>Reality</em></h2>
+                    <p class="ssc-lead">
+                        Founded with a passion for precision and creativity, <strong>SS Creationn</strong> provides end-to-end event planning, styling, and decor solutions. Whether orchestrating a grand royal wedding celebration, a high-stakes corporate conference, or an intimate birthday gathering, we handle every detail so our clients can immerse themselves in the moment.
+                    </p>
+                    <p class="ssc-lead">
+                        Our team brings together visual artists, stage designers, logistics specialists, and culinary liaisons to ensure each event reflects the client's signature taste while respecting their schedule and budget constraints.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3 mt-4">
+                        <a asp-controller="Booking" asp-action="Create" class="btn btn-gold px-4 py-3">
+                            Book an Event <span class="ssc-arrow">&rarr;</span>
+                        </a>
+                        <a asp-controller="Gallery" asp-action="Index" class="btn btn-outline-gold px-4 py-3">
+                            View Portfolio
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 ssc-reveal" style="--d: .1s">
+                    <div class="ssc-panel">
+                        <h4 class="mb-4" style="font-size: 1.8rem; font-weight: 600;">Why Choose SS Creationn?</h4>
+                        <ul class="ssc-checklist">
+                            <li>
+                                <span class="ssc-tick">✦</span>
+                                <div>
+                                    <strong>Bespoke Themes &amp; Decor</strong>
+                                    <p>Fully tailored spatial design, stage architecture, ambient lighting, and floral art.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ssc-tick">✦</span>
+                                <div>
+                                    <strong>Transparent Budgeting</strong>
+                                    <p>Clear cost breakdowns with honest pricing and zero hidden vendor markups.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ssc-tick">✦</span>
+                                <div>
+                                    <strong>Seamless Execution</strong>
+                                    <p>Dedicated on-ground coordinators managing timelines from load-in to wrap-up.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ssc-tick">✦</span>
+                                <div>
+                                    <strong>Curated Vendor Network</strong>
+                                    <p>Verified partnerships with top-tier caterers, sound engineers, and photographers.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ METRICS ============ -->
+        <section class="pb-5">
+            <div class="row g-4">
+                <div class="col-6 col-md-3 ssc-reveal">
+                    <div class="ssc-metric"><strong>150+</strong><span>Events Delivered</span></div>
+                </div>
+                <div class="col-6 col-md-3 ssc-reveal" style="--d: .08s">
+                    <div class="ssc-metric"><strong>98%</strong><span>Client Satisfaction</span></div>
+                </div>
+                <div class="col-6 col-md-3 ssc-reveal" style="--d: .16s">
+                    <div class="ssc-metric"><strong>25+</strong><span>Partner Venues</span></div>
+                </div>
+                <div class="col-6 col-md-3 ssc-reveal" style="--d: .24s">
+                    <div class="ssc-metric"><strong>5+</strong><span>Years of Experience</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ SERVICES ============ -->
+        <section class="ssc-section">
+            <div class="text-center mb-5 ssc-reveal">
+                <span class="ssc-kicker">Curated Offerings</span>
+                <h2 class="ssc-title">What We <em>Specialize</em> In</h2>
+                <p class="ssc-lead">Tailored solutions for every milestone occasion</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4 ssc-reveal">
+                    <div class="ssc-service ssc-service-center">
+                        <span class="ssc-num">01</span>
+                        <div class="ssc-icon">💍</div>
+                        <h5>Weddings &amp; Engagements</h5>
+                        <p>Mandap concepts, floral arrangements, thematic entrance tunnels, and bridal suite management.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 ssc-reveal" style="--d: .1s">
+                    <div class="ssc-service ssc-service-center">
+                        <span class="ssc-num">02</span>
+                        <div class="ssc-icon">🏢</div>
+                        <h5>Corporate Conferences</h5>
+                        <p>Audio-visual staging, keynotes, annual galas, brand launches, and executive hospitality retreats.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 ssc-reveal" style="--d: .2s">
+                    <div class="ssc-service ssc-service-center">
+                        <span class="ssc-num">03</span>
+                        <div class="ssc-icon">🎉</div>
+                        <h5>Private Celebrations</h5>
+                        <p>Milestone birthdays, anniversaries, cocktail evenings, and bespoke themed festive parties.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ TESTIMONIALS ============ -->
+        <section class="ssc-section pt-0">
+            <div class="text-center mb-5 ssc-reveal">
+                <span class="ssc-kicker">Words of Appreciation</span>
+                <h2 class="ssc-title">What Our <em>Hosts</em> Say</h2>
+                <p class="ssc-lead">Experiences shared by couples, corporate delegates, and families</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4 ssc-reveal">
+                    <div class="ssc-quote">
+                        <span class="ssc-quote-mark">&ldquo;</span>
+                        <div class="ssc-stars">★★★★★</div>
+                        <p>SS Creationn brought our dream palace wedding to life. From the floral mandap architecture to hospitality for 600+ attendees, their execution was flawless.</p>
+                        <div class="ssc-person">
+                            <div class="ssc-avatar">AP</div>
+                            <div><h6>Ananya &amp; Parth Patel</h6><small>Wedding, Vadodara</small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ssc-reveal" style="--d: .1s">
+                    <div class="ssc-quote">
+                        <span class="ssc-quote-mark">&ldquo;</span>
+                        <div class="ssc-stars">★★★★★</div>
+                        <p>The audio-visual staging and lighting for our Annual Tech Summit were world-class. Our keynote speakers and leadership delegates were thoroughly impressed.</p>
+                        <div class="ssc-person">
+                            <div class="ssc-avatar">RS</div>
+                            <div><h6>Rajesh Sharma</h6><small>Corporate Summit, Ahmedabad</small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ssc-reveal" style="--d: .2s">
+                    <div class="ssc-quote">
+                        <span class="ssc-quote-mark">&ldquo;</span>
+                        <div class="ssc-stars">★★★★★</div>
+                        <p>The Bohemian meadow theme designed for my milestone 25th birthday surpassed all expectations! The fairy string canopy was breathtaking.</p>
+                        <div class="ssc-person">
+                            <div class="ssc-avatar">KD</div>
+                            <div><h6>Kavya Desai</h6><small>Private Birthday Soirée</small></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ FINAL CTA ============ -->
+        <section class="ssc-final ssc-reveal">
+            <span class="ssc-kicker ssc-kicker-light">Let's Create Together</span>
+            <h2>Your story deserves an <em>extraordinary</em> setting.</h2>
+            <a asp-controller="Booking" asp-action="Create" class="btn btn-gold px-4 py-3 mt-3">Start Planning <span class="ssc-arrow">&rarr;</span></a>
+        </section>
+    </div>
+</div>

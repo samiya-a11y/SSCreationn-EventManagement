@@ -1,0 +1,95 @@
+@model SSCreationnProject.Models.Booking
+@{
+    ViewData["Title"] = "Reserve Your Event - SS Creationn";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9 col-xl-8">
+            <div class="ssc-form-card ssc-fade">
+                <div class="ssc-form-head">
+                    <span class="ssc-badge mb-3">✦ Client Inquiry Form</span>
+                    <h3>Reserve Your Event Date</h3>
+                    <p>Fill in your requirements below. Our bespoke event planning team will connect with you within 24 hours.</p>
+                </div>
+
+                <div class="ssc-form-body">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger small"></div>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label asp-for="ClientName" class="form-label"></label>
+                                <input asp-for="ClientName" class="form-control" placeholder="Full name" />
+                                <span asp-validation-for="ClientName" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="PhoneNumber" class="form-label"></label>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="10-digit mobile" />
+                                <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Email" class="form-label"></label>
+                                <input asp-for="Email" class="form-control" placeholder="email@example.com" />
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="EventType" class="form-label"></label>
+                                <select asp-for="EventType" class="form-select">
+                                    <option value="">-- Select Occasion --</option>
+                                    <option value="Wedding">Wedding &amp; Reception</option>
+                                    <option value="Corporate">Corporate Conference</option>
+                                    <option value="Birthday">Birthday Celebration</option>
+                                    <option value="Anniversary">Anniversary</option>
+                                    <option value="Cultural">Cultural / Festive Function</option>
+                                </select>
+                                <span asp-validation-for="EventType" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="EventDate" class="form-label"></label>
+                                <input asp-for="EventDate" type="date" class="form-control" />
+                                <span asp-validation-for="EventDate" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="GuestCount" class="form-label"></label>
+                                <input asp-for="GuestCount" type="number" class="form-control" placeholder="e.g. 300" />
+                                <span asp-validation-for="GuestCount" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label asp-for="EstimatedBudget" class="form-label"></label>
+                                <input asp-for="EstimatedBudget" type="number" class="form-control" placeholder="INR (₹)" />
+                                <span asp-validation-for="EstimatedBudget" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="VenueLocation" class="form-label"></label>
+                                <input asp-for="VenueLocation" class="form-control" placeholder="City, Party Plot, Palace, or Banquet Name" />
+                                <span asp-validation-for="VenueLocation" class="text-danger small"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="SpecialRequests" class="form-label"></label>
+                                <textarea asp-for="SpecialRequests" class="form-control" rows="4" placeholder="Color palette, mandatory floral arrangements, mandap architectural preferences..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 pt-4 d-flex flex-column-reverse flex-sm-row justify-content-end gap-2 border-top" style="border-color: rgba(197, 160, 89, .22) !important;">
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary px-4 py-2">Cancel</a>
+                            <button type="submit" class="btn btn-gold px-5 py-2">Submit Reservation <span class="ssc-arrow">&rarr;</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

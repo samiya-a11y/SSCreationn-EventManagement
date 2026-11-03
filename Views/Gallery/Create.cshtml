@@ -1,0 +1,67 @@
+@model SSCreationnProject.Models.EventGallery
+@{
+    ViewData["Title"] = "Add Event to Gallery - SS Creationn";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-7">
+            <div class="ssc-form-card ssc-fade">
+                <div class="ssc-form-head">
+                    <span class="ssc-badge mb-3">Owner Portfolio Manager</span>
+                    <h3>Upload Past Event Showcase</h3>
+                    <p>Add a celebration to your public portfolio with its full photo album.</p>
+                </div>
+
+                <div class="ssc-form-body">
+                    <form asp-action="Create" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger small"></div>
+
+                        <div class="mb-4">
+                            <label asp-for="Title" class="form-label">Event Title</label>
+                            <input asp-for="Title" class="form-control" placeholder="e.g. Royal Palace Destination Wedding" required />
+                            <span asp-validation-for="Title" class="text-danger small"></span>
+                        </div>
+
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="Category" class="form-label">Category</label>
+                                <select asp-for="Category" class="form-select" required>
+                                    <option value="Wedding">Wedding</option>
+                                    <option value="Corporate">Corporate</option>
+                                    <option value="Birthday">Birthday</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label asp-for="EventDate" class="form-label">Event Date</label>
+                                <input asp-for="EventDate" type="date" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Location" class="form-label">Venue / Location</label>
+                            <input asp-for="Location" class="form-control" placeholder="City or Venue name" required />
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Description" class="form-label">Highlights &amp; Decor Details</label>
+                            <textarea asp-for="Description" class="form-control" rows="4" placeholder="Lighting, floral setups, mandap theme..."></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Event Photographs (Select Multiple)</label>
+                            <input type="file" name="imageFiles" class="form-control" accept="image/*" multiple required />
+                            <small class="text-muted d-block mt-2">You can select multiple photos at once. The first image will be set as the card cover.</small>
+                        </div>
+
+                        <div class="pt-4 d-flex flex-column-reverse flex-sm-row justify-content-end gap-2 border-top" style="border-color: rgba(197, 160, 89, .22) !important;">
+                            <a asp-controller="Booking" asp-action="Index" class="btn btn-outline-secondary px-4 py-2">Cancel</a>
+                            <button type="submit" class="btn btn-gold px-5 py-2">Upload Showcase <span class="ssc-arrow">&rarr;</span></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

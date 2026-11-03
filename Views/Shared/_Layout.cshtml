@@ -1,0 +1,134 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    var ctrl = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    var act = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+    string Active(string c, string a) =>
+        string.Equals(ctrl, c, StringComparison.OrdinalIgnoreCase) && string.Equals(act, a, StringComparison.OrdinalIgnoreCase) ? "active" : "";
+    string ActiveCtrl(string c) =>
+        string.Equals(ctrl, c, StringComparison.OrdinalIgnoreCase) ? "active" : "";
+    var isOwner = Context.Session.GetString("IsOwner") == "true";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#FAF7F2" />
+    <title>@ViewData["Title"] - SS Creationn</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg ssc-navbar py-2">
+            <div class="container">
+                <a class="navbar-brand ssc-brand d-flex align-items-center gap-3 me-lg-5" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/logo.jpeg"
+                         alt="SS Creationn"
+                         width="46"
+                         height="46"
+                         class="rounded-circle"
+                         asp-append-version="true" />
+                    <span>
+                        <span class="ssc-brand-text">SS Creationn</span>
+                        <span class="ssc-brand-sub">Events &amp; Decor</span>
+                    </span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                    <ul class="navbar-nav mx-auto mb-3 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link @Active("Home", "Index")" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @ActiveCtrl("Gallery")" asp-controller="Gallery" asp-action="Index">Previous Events</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @Active("Home", "About")" asp-controller="Home" asp-action="About">About Us</a>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex flex-wrap align-items-center gap-2">
+                        <a asp-controller="Booking" asp-action="Create" class="btn btn-gold px-4 py-2">
+                            Book Event <span class="ssc-arrow">&rarr;</span>
+                        </a>
+
+                        @if (isOwner)
+                        {
+                            <div class="d-flex align-items-center gap-3 ps-lg-3 ms-lg-1 border-start-lg">
+                                <a asp-controller="Booking" asp-action="Index" class="btn btn-owner-badge">
+                                    Owner Dashboard
+                                </a>
+                                <a asp-controller="Booking" asp-action="Logout" class="ssc-logout">
+                                    Logout
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="flex-grow-1">
+        @RenderBody()
+    </main>
+
+    <footer class="ssc-footer">
+        <div class="container pt-5 pb-4">
+            <div class="row g-5 pb-4">
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        <img src="~/images/logo.jpeg" alt="" aria-hidden="true" width="52" height="52" class="rounded-circle" style="border: 2px solid #C5A059;" asp-append-version="true" />
+                        <span class="ssc-footer-brand">SS Creationn</span>
+                    </div>
+                    <p class="ssc-footer-text mb-0">
+                        Luxury event planning &amp; decor. We craft weddings, galas and celebrations with subtle luxury and timeless elegance.
+                    </p>
+                </div>
+                <div class="col-6 col-lg-3 offset-lg-1">
+                    <h6>Explore</h6>
+                    <ul>
+                        <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-controller="Gallery" asp-action="Index">Previous Events</a></li>
+                        <li><a asp-controller="Home" asp-action="About">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <h6>Celebrations</h6>
+                    <ul>
+                        <li><a asp-controller="Gallery" asp-action="Index" asp-route-category="Wedding">Weddings</a></li>
+                        <li><a asp-controller="Gallery" asp-action="Index" asp-route-category="Corporate">Corporate</a></li>
+                        <li><a asp-controller="Gallery" asp-action="Index" asp-route-category="Birthday">Birthdays</a></li>
+                        <li><a asp-controller="Booking" asp-action="Create">Book an Event</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="ssc-footer-bottom pt-4 d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
+                <div>&copy; 2026 <strong class="text-white">SS Creationn</strong>. All rights reserved.</div>
+                <div>
+                    @if (!isOwner)
+                    {
+                        <a asp-controller="Booking" asp-action="Login">Owner Portal</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,26 @@
+﻿@model SSCreationnProject.Models.ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<div class="container">
+    <div class="ssc-auth-wrap">
+        <div class="ssc-form-card text-center p-4 p-md-5 ssc-fade" style="max-width: 600px;">
+            <span class="ssc-badge mb-3">Something went wrong</span>
+            <h1 class="mb-3" style="font-size: clamp(2.4rem, 6vw, 3.6rem); font-weight: 600;">We hit a <em class="ssc-accent">snag</em></h1>
+            <p class="ssc-lead mb-4">An error occurred while processing your request. Please try again in a moment.</p>
+
+            @if (Model.ShowRequestId)
+            {
+                <p class="small text-muted">
+                    <strong>Request ID:</strong> <code>@Model.RequestId</code>
+                </p>
+            }
+
+            <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                <a asp-controller="Home" asp-action="Index" class="btn btn-gold px-4 py-3">Back to Home</a>
+                <a asp-controller="Booking" asp-action="Create" class="btn btn-outline-gold px-4 py-3">Book an Event</a>
+            </div>
+        </div>
+    </div>
+</div>

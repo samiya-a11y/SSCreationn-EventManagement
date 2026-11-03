@@ -1,0 +1,346 @@
+@model IEnumerable<SSCreationnProject.Models.EventGallery>
+@{
+    ViewData["Title"] = "Luxury Event Management & Decor";
+}
+
+<div class="ssc-home">
+
+    <!-- ============ HERO ============ -->
+    <section class="ssc-hero">
+        <!-- Left Corner Half Logo (Higher Visibility) -->
+    <img src="~/images/logo.jpeg" 
+         alt="" 
+         aria-hidden="true"
+         class="position-absolute rounded-circle user-select-none d-none d-md-block" 
+         style="left: 0; top: 50%; transform: translate(-50%, -50%); width: 540px; height: 540px; opacity: 0.60; filter: contrast(1.1) drop-shadow(0 8px 25px rgba(197, 160, 89, 0.45)); pointer-events: none; z-index: 1;"
+         asp-append-version="true" />
+
+    <!-- Right Corner Half Logo (Higher Visibility) -->
+    <img src="~/images/logo.jpeg" 
+         alt="" 
+         aria-hidden="true"
+         class="position-absolute rounded-circle user-select-none d-none d-md-block" 
+         style="right: 0; top: 50%; transform: translate(50%, -50%); width: 540px; height: 540px; opacity: 0.60; filter: contrast(1.1) drop-shadow(0 8px 25px rgba(197, 160, 89, 0.45)); pointer-events: none; z-index: 1;"
+         asp-append-version="true" />
+
+        <div class="ssc-orb ssc-orb-1"></div>
+        <div class="ssc-orb ssc-orb-2"></div>
+
+        <div class="container position-relative ssc-hero-inner">
+            <span class="ssc-eyebrow ssc-fade">
+                <span class="ssc-line"></span> SS Creationn · Bespoke Experiences <span class="ssc-line"></span>
+            </span>
+
+            <h1 class="ssc-hero-title ssc-fade" style="--d: .1s">
+                Crafting Unforgettable<br />
+                <em>Milestone Moments</em>
+            </h1>
+
+            <p class="ssc-hero-sub ssc-fade" style="--d: .2s">
+                From royal weddings to executive galas, we curate and execute exquisite
+                celebrations with subtle luxury and timeless elegance.
+            </p>
+
+            <div class="d-flex flex-wrap justify-content-center gap-3 ssc-fade" style="--d: .3s">
+                <a asp-controller="Booking" asp-action="Create" class="btn btn-gold px-4 py-3">
+                    Book Your Event <span class="ssc-arrow">&rarr;</span>
+                </a>
+                <a asp-controller="Gallery" asp-action="Index" class="btn btn-outline-gold px-4 py-3">
+                    View All Events
+                </a>
+            </div>
+
+            <div class="ssc-stats ssc-fade" style="--d: .45s">
+                <div><strong>150+</strong><span>Events Delivered</span></div>
+                <div class="ssc-divider"></div>
+                <div><strong>5+</strong><span>Years of Craft</span></div>
+                <div class="ssc-divider"></div>
+                <div><strong>24h</strong><span>Response Time</span></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- ============ QUICK BOOKING BAND ============ -->
+        <section class="ssc-band ssc-reveal">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-8">
+                    <span class="ssc-kicker ssc-kicker-light">Plan Your Big Day</span>
+                    <h3 class="ssc-band-title">Reserve your date with SS Creationn</h3>
+                    <p class="mb-0">Share your event category, expected guest count, and budget. Our lead event designer connects within 24 hours.</p>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <a asp-controller="Booking" asp-action="Create" class="btn btn-gold px-4 py-3 w-100 w-lg-auto">
+                        Inquire Now <span class="ssc-arrow">&rarr;</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ SIGNATURE WORKS ============ -->
+        <section class="ssc-section">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-5 gap-3 ssc-reveal">
+                <div>
+                    <span class="ssc-kicker">Signature Works</span>
+                    <h2 class="ssc-title mb-0">Recent Event <em>Highlights</em></h2>
+                </div>
+                <a asp-controller="Gallery" asp-action="Index" class="ssc-link">
+                    Browse Full Portfolio <span class="ssc-arrow">&rarr;</span>
+                </a>
+            </div>
+
+            <div class="row g-4">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <div class="col-md-6 col-lg-4 ssc-reveal">
+                            <article class="ssc-card" data-bs-toggle="modal" data-bs-target="#homeModal-@item.Id" role="button" tabindex="0">
+                                <div class="ssc-card-media">
+                                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                                    {
+                                        <img src="@item.ImageUrl" alt="@item.Title" loading="lazy" />
+                                    }
+                                    else
+                                    {
+                                        <div class="ssc-card-empty"><span>Photo pending</span></div>
+                                    }
+
+                                    <span class="ssc-chip ssc-chip-dark">
+                                        @(item.GalleryImages is { Count: > 0 } ? item.GalleryImages.Count : 1) Photos
+                                    </span>
+                                    <span class="ssc-chip ssc-chip-gold">@item.Category</span>
+
+                                    <div class="ssc-card-hint"><span>View gallery</span></div>
+                                </div>
+
+                                <div class="ssc-card-body">
+                                    <p class="ssc-card-meta">@item.Location &nbsp;·&nbsp; @item.EventDate.ToString("MMM yyyy")</p>
+                                    <h5 class="ssc-card-title">@item.Title</h5>
+                                    @if (!string.IsNullOrEmpty(item.Description))
+                                    {
+                                        <p class="ssc-card-text">@item.Description</p>
+                                    }
+                                </div>
+                            </article>
+                        </div>
+
+                        <!-- MODAL -->
+                        <div class="modal fade ssc-modal" id="homeModal-@item.Id" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div>
+                                            <span class="ssc-chip ssc-chip-gold ssc-chip-static mb-2">@item.Category</span>
+                                            <h4 class="modal-title">@item.Title</h4>
+                                        </div>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <div id="homeCarousel-@item.Id" class="carousel slide ssc-carousel mb-3" data-bs-ride="false">
+                                            <div class="carousel-inner">
+                                                @if (item.GalleryImages != null && item.GalleryImages.Any())
+                                                {
+                                                    var isFirst = true;
+                                                    foreach (var photo in item.GalleryImages)
+                                                    {
+                                                        <div class="carousel-item @(isFirst ? "active" : "")">
+                                                            <img src="@photo.ImageUrl" class="d-block w-100" alt="@item.Title" loading="lazy" />
+                                                        </div>
+                                                        isFirst = false;
+                                                    }
+                                                }
+                                                else if (!string.IsNullOrEmpty(item.ImageUrl))
+                                                {
+                                                    <div class="carousel-item active">
+                                                        <img src="@item.ImageUrl" class="d-block w-100" alt="@item.Title" />
+                                                    </div>
+                                                }
+                                            </div>
+
+                                            @if ((item.GalleryImages?.Count ?? 0) > 1)
+                                            {
+                                                <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel-@item.Id" data-bs-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Previous</span>
+                                                </button>
+                                                <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel-@item.Id" data-bs-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="visually-hidden">Next</span>
+                                                </button>
+                                            }
+                                        </div>
+
+                                        @if (item.GalleryImages != null && item.GalleryImages.Count > 1)
+                                        {
+                                            <div class="ssc-thumbs">
+                                                @for (int pIdx = 0; pIdx < item.GalleryImages.Count; pIdx++)
+                                                {
+                                                    <img src="@item.GalleryImages[pIdx].ImageUrl"
+                                                         data-bs-target="#homeCarousel-@item.Id"
+                                                         data-bs-slide-to="@pIdx"
+                                                         alt="Thumbnail @(pIdx + 1)" loading="lazy" />
+                                                }
+                                            </div>
+                                        }
+
+                                        <div class="row g-3 mb-3">
+                                            <div class="col-sm-6">
+                                                <div class="ssc-info"><small>Venue</small><div>@item.Location</div></div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="ssc-info"><small>Date</small><div>@item.EventDate.ToString("dd MMMM yyyy")</div></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="ssc-info">
+                                            <small>Decor Highlights</small>
+                                            <p class="mb-0">@(string.IsNullOrWhiteSpace(item.Description) ? "Turnkey styling and event coordination by SS Creationn." : item.Description)</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <span class="small text-muted d-none d-sm-inline">Ready to reserve your date?</span>
+                                        <div class="d-flex gap-2 ms-auto">
+                                            <button type="button" class="btn btn-outline-gold btn-sm px-4" data-bs-dismiss="modal">Close</button>
+                                            <a asp-controller="Booking" asp-action="Create" class="btn btn-gold btn-sm px-4">Book This Setup</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12 ssc-reveal">
+                        <div class="ssc-empty">
+                            <div class="ssc-empty-icon">📸</div>
+                            <h5>No content available</h5>
+                            <p>We're curating our latest event highlights. Please check back soon.</p>
+                            <a asp-controller="Booking" asp-action="Create" class="btn btn-outline-gold btn-sm px-4">Plan Your Event</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+
+        <!-- ============ SERVICES ============ -->
+        <section class="ssc-section pt-0">
+            <div class="text-center mb-5 ssc-reveal">
+                <span class="ssc-kicker">Signature Curations</span>
+                <h2 class="ssc-title">What We <em>Specialize</em> In</h2>
+                <p class="ssc-lead">Choose a category to browse our portfolio</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4 ssc-reveal">
+                    <div class="ssc-service">
+                        <span class="ssc-num">01</span>
+                        <div class="ssc-icon">💍</div>
+                        <h5>Weddings &amp; Engagements</h5>
+                        <p>Palace setups, floral mandaps, ambient lighting, and bespoke reception design.</p>
+                        <a asp-controller="Gallery" asp-action="Index" asp-route-category="Wedding" class="ssc-link">View Weddings <span class="ssc-arrow">&rarr;</span></a>
+                    </div>
+                </div>
+                <div class="col-md-4 ssc-reveal" style="--d: .1s">
+                    <div class="ssc-service">
+                        <span class="ssc-num">02</span>
+                        <div class="ssc-icon">🏢</div>
+                        <h5>Corporate Conferences</h5>
+                        <p>Keynotes, audio-visual stages, product launches, and gala dinner curation.</p>
+                        <a asp-controller="Gallery" asp-action="Index" asp-route-category="Corporate" class="ssc-link">View Corporate <span class="ssc-arrow">&rarr;</span></a>
+                    </div>
+                </div>
+                <div class="col-md-4 ssc-reveal" style="--d: .2s">
+                    <div class="ssc-service">
+                        <span class="ssc-num">03</span>
+                        <div class="ssc-icon">🎉</div>
+                        <h5>Private Celebrations</h5>
+                        <p>Milestone birthdays, anniversaries, intimate soirées, and festive gatherings.</p>
+                        <a asp-controller="Gallery" asp-action="Index" asp-route-category="Birthday" class="ssc-link">View Celebrations <span class="ssc-arrow">&rarr;</span></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ PROCESS ============ -->
+        <section class="ssc-section pt-0">
+            <div class="text-center mb-5 ssc-reveal">
+                <span class="ssc-kicker">How It Works</span>
+                <h2 class="ssc-title">From Idea to <em>Celebration</em></h2>
+            </div>
+            <div class="ssc-process">
+                <div class="ssc-step ssc-reveal">
+                    <div class="ssc-step-dot">1</div>
+                    <h6>Share Your Vision</h6>
+                    <p>Tell us your event type, guest count, and budget.</p>
+                </div>
+                <div class="ssc-step ssc-reveal" style="--d: .1s">
+                    <div class="ssc-step-dot">2</div>
+                    <h6>Design &amp; Plan</h6>
+                    <p>Our designer crafts a bespoke concept and layout.</p>
+                </div>
+                <div class="ssc-step ssc-reveal" style="--d: .2s">
+                    <div class="ssc-step-dot">3</div>
+                    <h6>Flawless Execution</h6>
+                    <p>We set up, coordinate, and you simply enjoy the day.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ TESTIMONIALS ============ -->
+        <section class="ssc-section pt-0">
+            <div class="text-center mb-5 ssc-reveal">
+                <span class="ssc-kicker">Words of Appreciation</span>
+                <h2 class="ssc-title">Client <em>Testimonials</em></h2>
+                <p class="ssc-lead">Stories from hosts who trusted us with their milestone celebrations</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4 ssc-reveal">
+                    <div class="ssc-quote">
+                        <span class="ssc-quote-mark">&ldquo;</span>
+                        <div class="ssc-stars">★★★★★</div>
+                        <p>SS Creationn brought our dream palace wedding to life. From the floral mandap architecture to guest coordination for 600+ attendees, their execution was flawless and completely stress-free.</p>
+                        <div class="ssc-person">
+                            <div class="ssc-avatar">AP</div>
+                            <div><h6>Ananya &amp; Parth Patel</h6><small>Sayaji Lawns Wedding, Vadodara</small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ssc-reveal" style="--d: .1s">
+                    <div class="ssc-quote">
+                        <span class="ssc-quote-mark">&ldquo;</span>
+                        <div class="ssc-stars">★★★★★</div>
+                        <p>The audio-visual setup, stage trussing, and banquet lighting for our Annual Tech Summit were world-class. Our leadership delegates appreciated the seamless execution.</p>
+                        <div class="ssc-person">
+                            <div class="ssc-avatar">RS</div>
+                            <div><h6>Rajesh Sharma</h6><small>Corporate Summit, Grand Ballroom</small></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 ssc-reveal" style="--d: .2s">
+                    <div class="ssc-quote">
+                        <span class="ssc-quote-mark">&ldquo;</span>
+                        <div class="ssc-stars">★★★★★</div>
+                        <p>The Bohemian meadow theme designed for my 25th birthday surpassed all expectations! The fairy string canopy and photo booths made the celebration memorable for all our guests.</p>
+                        <div class="ssc-person">
+                            <div class="ssc-avatar">KD</div>
+                            <div><h6>Kavya Desai</h6><small>Riverfront Celebration</small></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ FINAL CTA ============ -->
+        <section class="ssc-final ssc-reveal">
+            <span class="ssc-kicker ssc-kicker-light">Let's Create Together</span>
+            <h2>Your story deserves an <em>extraordinary</em> setting.</h2>
+            <a asp-controller="Booking" asp-action="Create" class="btn btn-gold px-4 py-3 mt-3">Start Planning <span class="ssc-arrow">&rarr;</span></a>
+        </section>
+    </div>
+</div>

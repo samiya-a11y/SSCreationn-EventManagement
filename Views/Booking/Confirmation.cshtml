@@ -1,0 +1,28 @@
+@model SSCreationnProject.Models.Booking
+@{
+    ViewData["Title"] = "Inquiry Received - SS Creationn";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-7">
+            <div class="ssc-form-card text-center p-4 p-md-5 ssc-fade">
+                <div class="ssc-confirm-mark">✓</div>
+
+                <span class="ssc-badge mb-3">Inquiry Confirmed · #SS-@Model.Id</span>
+                <h2 class="mb-3" style="font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 600;">Thank you, <em class="ssc-accent">@Model.ClientName</em></h2>
+
+                <p class="ssc-lead mb-4">
+                    Your reservation inquiry for a <strong>@Model.EventType</strong> on
+                    <strong>@Model.EventDate.ToString("dd MMMM yyyy")</strong> at <strong>@Model.VenueLocation</strong> has been logged.
+                    Our bespoke planning team will reach out to you at <strong>@Model.PhoneNumber</strong> within 24 hours.
+                </p>
+
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-gold px-4 py-3">Back to Home</a>
+                    <a asp-controller="Gallery" asp-action="Index" class="btn btn-gold px-4 py-3">Explore Gallery <span class="ssc-arrow">&rarr;</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
